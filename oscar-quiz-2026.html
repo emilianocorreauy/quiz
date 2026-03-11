@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Qué nominada al Oscar 2026 tenés que ver?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #292929;
+  --bg-soft: #323232;
+  --panel: #ffffff;
+  --text: #ffffff;
+  --text-soft: rgba(255,255,255,.82);
+  --text-muted: rgba(255,255,255,.58);
+  --ink: #111111;
+  --gold: #b08a2e;
+  --gold-soft: #d6b55b;
+  --gold-dark: #8a6a1f;
+  --gold-line: rgba(214,181,91,.34);
+  --gold-line-strong: rgba(214,181,91,.58);
+  --gold-glow: rgba(214,181,91,.18);
+}
+
+body {
+  font-family: 'Bitter', serif;
+  background:
+    radial-gradient(circle at top center, rgba(214,181,91,.08) 0%, rgba(214,181,91,0) 36%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+header {
+  padding: 48px 0 30px;
+  border-bottom: 1px solid var(--gold-line-strong);
+  margin-bottom: 40px;
+}
+
+.kicker {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: 12px;
+}
+
+header h1 {
+  font-family: 'Bitter', serif;
+  font-size: clamp(32px, 5.5vw, 52px);
+  font-weight: 900;
+  line-height: .98;
+  color: var(--gold);
+  text-wrap: balance;
+}
+
+header p {
+  font-family: 'Bitter', serif;
+  font-size: 17px;
+  color: var(--text-soft);
+  margin-top: 14px;
+  line-height: 1.55;
+  max-width: 58ch;
+}
+
+.progress {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: 20px;
+}
+
+.question-wrap {
+  animation: fadeUp .35s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.question-text {
+  font-family: 'Bitter', serif;
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 28px;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.choice-btn {
+  width: 100%;
+  padding: 17px 24px;
+  border: 1.5px solid rgba(255,255,255,.18);
+  border-radius: 40px;
+  background: var(--panel);
+  box-shadow: 0 0 0 0 rgba(214,181,91,0);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+  line-height: 1.35;
+}
+
+.choice-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 4px var(--gold-glow);
+}
+
+.choice-btn.selected {
+  background: linear-gradient(180deg, var(--gold-soft) 0%, var(--gold) 100%);
+  border-color: var(--gold);
+  color: var(--ink);
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18), 0 0 0 4px var(--gold-glow);
+}
+
+.movies-reveal {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 6px;
+  animation: fadeUp .4s ease;
+}
+
+.movies-reveal.visible {
+  display: flex;
+}
+
+.reveal-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--gold-line);
+}
+
+.movie-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.movie-icon {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+  background: #1e1e1e;
+}
+
+.result-icon {
+  width: 88px;
+  height: 88px;
+  min-width: 88px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+  background: #1e1e1e;
+}
+
+.movie-icon img,
+.result-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.movie-title {
+  font-family: 'Bitter', serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.movie-dir {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.movie-desc {
+  font-family: 'Bitter', serif;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.explanation {
+  display: none;
+  margin-top: 16px;
+  font-family: 'Bitter', serif;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-soft);
+  border-top: 1px solid var(--gold-line-strong);
+  padding-top: 14px;
+  animation: fadeUp .3s ease;
+}
+
+.explanation.visible {
+  display: block;
+}
+
+.next-btn {
+  display: none;
+  margin-top: 30px;
+  padding: 14px 36px;
+  background: #171717;
+  color: var(--gold-soft);
+  border: 1px solid var(--gold-line-strong);
+  border-radius: 40px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+.next-btn:hover {
+  background: #1f1f1f;
+  border-color: var(--gold-soft);
+  transform: translateY(-1px);
+}
+
+.next-btn.visible {
+  display: inline-block;
+}
+
+.result-wrap {
+  display: none;
+  animation: fadeUp .5s ease;
+}
+
+.result-wrap.visible {
+  display: block;
+}
+
+.result-header {
+  font-family: 'Bitter', serif;
+  font-size: clamp(28px, 5vw, 46px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.result-header em {
+  color: var(--gold-soft);
+  font-style: normal;
+}
+
+.result-sub {
+  font-family: 'Bitter', serif;
+  font-size: 17px;
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.result-movie {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-top: 1px solid var(--gold-line);
+}
+
+.result-title {
+  font-family: 'Bitter', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.result-detail {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.result-pitch {
+  font-family: 'Bitter', serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+.tag-match {
+  display: inline-block;
+  background: linear-gradient(180deg, var(--gold-soft) 0%, var(--gold) 100%);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.14);
+}
+
+.restart-btn {
+  margin-top: 40px;
+  padding: 14px 36px;
+  background: transparent;
+  color: var(--gold-soft);
+  border: 1.5px solid var(--gold);
+  border-radius: 40px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.restart-btn:hover {
+  background: linear-gradient(180deg, var(--gold-soft) 0%, var(--gold) 100%);
+  color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+}
+
+@media (max-width: 480px) {
+  header {
+    padding-top: 38px;
+  }
+
+  .movie-icon {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+  }
+
+  .result-icon {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+  }
+
+  .choice-btn {
+    padding: 16px 18px;
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="kicker">Oscar 2026 · Mejor Película</div>
+    <h1>¿Cuál nominada<br>tenés que ver?</h1>
+    <p>Respondé 10 preguntas sobre tus gustos y te recomendamos una de las 10 nominadas a Mejor Película en los Oscar 2026.
+</p>
+  </header>
+
+  <div id="quizArea"></div>
+  <div class="result-wrap" id="resultWrap"></div>
+
+</div>
+
+<script>
+const FILMS = {
+  sinners: {
+    title: "Sinners",
+    dir: "Ryan Coogler",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/sinners.png",
+    bg: "#1a0800"
+  },
+  batalla: {
+    title: "Una Batalla Tras Otra",
+    dir: "Paul Thomas Anderson",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/una-batalla-tras-otra.jpg",
+    bg: "#2c1a0e"
+  },
+  hamnet: {
+    title: "Hamnet",
+    dir: "Chloé Zhao",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/hamnet.jpg",
+    bg: "#1c1a2e"
+  },
+  frankenstein: {
+    title: "Frankenstein",
+    dir: "Guillermo del Toro",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/frankestein.jpg",
+    bg: "#0d1a0d"
+  },
+  f1: {
+    title: "F1",
+    dir: "Joseph Kosinski",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/f1-la-pelicula.jpg",
+    bg: "#0a0a1a"
+  },
+  agente: {
+    title: "El Agente Secreto",
+    dir: "Kleber Mendonça Filho",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/el-agente-secreto.jpg",
+    bg: "#1a1a0a"
+  },
+  valor: {
+    title: "Valor Sentimental",
+    dir: "Joachim Trier",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/valor-sentimental.jpg",
+    bg: "#1a0a1a"
+  },
+  marty: {
+    title: "Marty Supreme",
+    dir: "Josh Safdie",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/marty-supreme.jpg",
+    bg: "#0a1a1a"
+  },
+  bugonia: {
+    title: "Bugonia",
+    dir: "Yorgos Lanthimos",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/bugonia.jpg",
+    bg: "#1a0a0a"
+  },
+  train: {
+    title: "Train Dreams",
+    dir: "Clint Bentley",
+    img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/suenos-de-trenes.jpg",
+    bg: "#1a1510"
+  }
+};
+
+const PITCHES = {
+  sinners: "Vampiros en el Mississippi de 1932. Coogler mezcla terror, blues y crítica racial en su película más ambiciosa. Michael B. Jordan en doble rol.",
+  batalla: "Paul Thomas Anderson dirige a Leonardo DiCaprio en una épica histórica. 28 años nominado, 0 Oscars. Esta puede ser su noche.",
+  hamnet: "La historia secreta del hijo de Shakespeare, cuya muerte inspiró Hamlet. Chloé Zhao en modo íntimo y devastador.",
+  frankenstein: "Del Toro lleva su obsesión de toda la vida al Oscar. La criatura como metáfora del rechazo y la otredad. No es la historia que ya conocés.",
+  f1: "Brad Pitt vuelve a las pistas con secuencias filmadas en carreras reales. El blockbuster más caro del año, producido por Lewis Hamilton.",
+  agente: "Thriller político brasileño hecho con $1.4 millones. El David más pequeño contra el Goliat de Hollywood en la misma categoría.",
+  valor: "Una hija vuelve a Oslo, cuida a su madre enferma y reencuentra a su primer amor. El director de 'La Peor Persona del Mundo' en su mejor forma.",
+  marty: "Josh Safdie (Uncut Gems) retrata a un campeón de ping pong obsesivo. Nerviosa, frenética, imposible de soltar.",
+  bugonia: "Yorgos Lanthimos sigue siendo el más raro del cine de autor. Emma Stone de nuevo bajo su dirección. Surrealismo sin explicaciones.",
+  train: "Un hombre reconstruye su vida en el oeste americano tras una tragedia. Basada en Denis Johnson. Silenciosa y devastadora."
+};
+
+const questions = [
+  {
+    q: "1. ¿Preferís trayectoria respetable o hambre de consagración?",
+    options: [
+      {
+        label: "Trayectoria respetable.",
+        score: { sinners:3, batalla:3, frankenstein:3, bugonia:3, hamnet:2, f1:2 },
+        reveal: ["sinners","batalla","frankenstein","bugonia"],
+        label2: "Directores con historial de nominaciones",
+        exp: "Coogler, Anderson, Del Toro y Lanthimos acumulan decenas de nominaciones entre los cuatro. Anderson lleva 28 años buscando su primer Oscar como director."
+      },
+      {
+        label: "Hambre de consagración.",
+        score: { agente:3, valor:3, marty:3, train:3, hamnet:2 },
+        reveal: ["agente","valor","marty","train"],
+        label2: "Directores en busca de su primera gran noche",
+        exp: "Mendonça Filho, Trier, Safdie y Bentley llegan al Oscar sin el peso de la fama masiva. Primera o segunda vez en este escenario."
+      }
+    ]
+  },
+  {
+    q: "2. ¿Te atrae más lo raro o lo tradicional?",
+    options: [
+      {
+        label: "Cuanto más raro, mejor.",
+        score: { sinners:3, frankenstein:3, f1:3, bugonia:3 },
+        reveal: ["sinners","frankenstein","bugonia"],
+        label2: "Las películas de género nominadas este año",
+        exp: "Este año el Oscar tiene más género que nunca: vampiros (Sinners), la criatura de Frankenstein, Fórmula 1 filmada en carreras reales y el universo surreal de Lanthimos."
+      },
+      {
+        label: "Tradición mata todo.",
+        score: { batalla:3, hamnet:3, valor:3, agente:3, marty:2, train:2 },
+        reveal: ["valor","hamnet"],
+        label2: "Tradicionales más fuertes",
+        exp: "Desde la épica histórica de Anderson hasta el intimismo noruego de Trier, pasando por el duelo shakespeariano de Hamnet y el thriller político de Mendonça Filho."
+      }
+    ]
+  },
+  {
+    q: "3. ¿Preferís cine latinoamericano o te inclinás por el cine de autor europeo?",
+    options: [
+      {
+        label: "Latinoamérica tiene algo que Hollywood no puede replicar",
+        score: { frankenstein:3, agente:3, sinners:1, batalla:1 },
+        reveal: ["frankenstein","agente"],
+        label2: "Los directores latinoamericanos de la lista",
+        exp: "Guillermo del Toro (México) con Frankenstein y Kleber Mendonça Filho (Brasil) con El Agente Secreto: dos visiones completamente distintas de qué puede hacer el cine latino en los máximos escenarios."
+      },
+      {
+        label: "El cine de autor europeo me habla de otra manera",
+        score: { hamnet:3, valor:3, bugonia:3, train:1 },
+        reveal: ["hamnet","valor","bugonia"],
+        label2: "El cine europeo nominado",
+        exp: "Chloé Zhao (UK/China), Joachim Trier (Noruega) y Yorgos Lanthimos (Grecia): tres sensibilidades radicalmente distintas que llegan al Oscar desde el margen del sistema."
+      }
+    ]
+  },
+  {
+    q: "4. ¿Preferís una historia basada en hechos o personas reales, o ficción pura que invente su propio mundo?",
+    options: [
+      {
+        label: "Real: si pasó de verdad, me llega más profundo",
+        score: { hamnet:3, agente:3, marty:3, train:3, f1:2, batalla:2 },
+        reveal: ["hamnet","agente","marty","train"],
+        label2: "Basadas en hechos o personas reales",
+        exp: "Hamnet narra la familia del Shakespeare real, El Agente Secreto es espionaje político verdadero en Brasil, Marty Supreme retrata a un campeón real de ping pong y Train Dreams está basada en una novela de corte autobiográfico."
+      },
+      {
+        label: "Ficción: quiero mundos que solo existen en la pantalla",
+        score: { sinners:3, frankenstein:3, bugonia:3, valor:2, f1:1 },
+        reveal: ["sinners","frankenstein","bugonia"],
+        label2: "Ficción sin ataduras a la realidad",
+        exp: "Vampiros en el sur de EEUU en 1932, la criatura de Frankenstein reimaginada y el universo absurdo e inexplicable de Lanthimos. Ficción que no le pide permiso a nadie."
+      }
+    ]
+  },
+  {
+    q: "5. El presupuesto, ¿importa? ¿Espectáculo visual o ingenio con poco dinero?",
+    options: [
+      {
+        label: "Que se note en pantalla — quiero producción, efectos, escala",
+        score: { f1:3, sinners:3, frankenstein:3, batalla:2, bugonia:2 },
+        reveal: ["f1","sinners","frankenstein"],
+        label2: "Las películas de gran escala",
+        exp: "F1 costó entre $200–300 millones, Sinners $90 millones y Frankenstein $80 millones. Las tres apuestan a la experiencia cinematográfica como argumento en sí misma."
+      },
+      {
+        label: "El ingenio vale más — lo que importa es la visión",
+        score: { agente:3, train:3, marty:3, valor:2, hamnet:2 },
+        reveal: ["agente","train","marty"],
+        label2: "Cine que hizo maravillas con poco presupuesto",
+        exp: "El Agente Secreto con $1.4 millones, Train Dreams con $10 millones y Marty Supreme con $15 millones. Las tres prueban que la visión artística no necesita billetera."
+      }
+    ]
+  },
+  {
+    q: "6. Esta noche: ¿querés salir electrizado del cine o salir pensando en algo que te va a quedar días?",
+    options: [
+      {
+        label: "Electrizado — que me mueva el piso",
+        score: { sinners:3, f1:3, marty:3, frankenstein:2, bugonia:2 },
+        reveal: ["sinners","f1","marty"],
+        label2: "Para salir con energía",
+        exp: "Sinners te saca de la butaca, F1 te hace sentir en la pista y Marty Supreme tiene la energía nerviosa de Uncut Gems. Las tres son experiencias físicas tanto como narrativas."
+      },
+      {
+        label: "Que me quede — el tipo de película que vuelve cuando apagás la luz",
+        score: { batalla:3, hamnet:3, valor:3, agente:3, train:2 },
+        reveal: ["batalla","hamnet","valor","agente"],
+        label2: "Para salir pensando",
+        exp: "Una Batalla Tras Otra, Hamnet, Valor Sentimental y El Agente Secreto trabajan lento, acumulan, te esperan. El mejor tipo de cine: el que no termina en el cine."
+      }
+    ]
+  }
+];
+
+let current = 0;
+let scores = {};
+Object.keys(FILMS).forEach(k => scores[k] = 0);
+let answered = false;
+
+function render() {
+  if (current >= questions.length) {
+    showResult();
+    return;
+  }
+
+  answered = false;
+  const q = questions[current];
+
+  document.getElementById('quizArea').innerHTML = `
+    <div class="question-wrap">
+      <div class="progress">Pregunta ${current + 1} de ${questions.length}</div>
+      <div class="question-text">${q.q}</div>
+
+      <div class="btn-group">
+        ${q.options.map((o, i) => `
+          <button class="choice-btn" id="btn${i}" onclick="choose(${i})">${o.label}</button>
+        `).join('')}
+      </div>
+
+      ${q.options.map((o, i) => `
+        <div class="movies-reveal" id="rev${i}">
+          <div class="reveal-label">${o.label2}</div>
+
+          ${o.reveal.map(fk => {
+            const f = FILMS[fk];
+            return `
+              <div class="movie-card">
+                <div class="movie-icon" style="background:${f.bg};">
+                  <img src="${f.img}" alt="${f.title}">
+                </div>
+                <div>
+                  <div class="movie-title">${f.title}</div>
+                  <div class="movie-dir">Dir. ${f.dir}</div>
+                  <div class="movie-desc">${PITCHES[fk]}</div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+
+          <div class="explanation" id="exp${i}">${o.exp}</div>
+        </div>
+      `).join('')}
+
+      <button class="next-btn" id="nextBtn" onclick="next()">
+        ${current < questions.length - 1 ? 'Siguiente →' : 'Ver mi resultado →'}
+      </button>
+    </div>
+  `;
+}
+
+function choose(idx) {
+  if (answered) return;
+
+  answered = true;
+  const q = questions[current];
+  const chosen = q.options[idx];
+
+  Object.entries(chosen.score).forEach(([k, v]) => {
+    scores[k] = (scores[k] || 0) + v;
+  });
+
+  document.querySelectorAll('.choice-btn').forEach((b, i) => {
+    b.disabled = true;
+    if (i === idx) {
+      b.classList.add('selected');
+    } else {
+      b.style.opacity = '0.55';
+    }
+  });
+
+  document.getElementById(`rev${idx}`).classList.add('visible');
+  document.getElementById(`exp${idx}`).classList.add('visible');
+  document.getElementById('nextBtn').classList.add('visible');
+}
+
+function next() {
+  current++;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showResult() {
+  document.getElementById('quizArea').innerHTML = '';
+
+  const top3 = Object.entries(scores)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([k]) => k);
+
+  const wrap = document.getElementById('resultWrap');
+  wrap.classList.add('visible');
+
+  wrap.innerHTML = `
+    <div class="progress">Tu resultado</div>
+    <div class="result-header">Tu película es<br><em>${FILMS[top3[0]].title}</em></div>
+    <p class="result-sub">Estas tres películas son las que más se alinean con tus respuestas.</p>
+
+    <div>
+      ${top3.map((fk, i) => {
+        const f = FILMS[fk];
+        return `
+          <div class="result-movie">
+            <div class="result-icon" style="background:${f.bg};">
+              <img src="${f.img}" alt="${f.title}">
+            </div>
+            <div>
+              ${i === 0 ? '<span class="tag-match">Tu match</span>' : ''}
+              <div class="result-title">${f.title}</div>
+              <div class="result-detail">Dir. ${f.dir}</div>
+              <div class="result-pitch">${PITCHES[fk]}</div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+
+    <button class="restart-btn" onclick="restart()">Volver a empezar</button>
+  `;
+}
+
+function restart() {
+  current = 0;
+  Object.keys(scores).forEach(k => scores[k] = 0);
+  document.getElementById('resultWrap').classList.remove('visible');
+  document.getElementById('resultWrap').innerHTML = '';
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+render();
+</script>
+</body>
+</html>
