@@ -511,7 +511,7 @@ const FILMS = {
     watchLink: "#"
   },
   train: {
-    title: "Train Dreams",
+    title: "Sueños de trenes",
     dir: "Clint Bentley",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/suenos-de-trenes.jpg",
     bg: "#1a1510",
@@ -538,18 +538,18 @@ const questions = [
     q: "1. ¿Preferís trayectoria respetable o hambre de consagración?",
     options: [
       {
-        label: "Trayectoria respetable.",
+        label: "Trayectoria respetable",
         score: { sinners:3, batalla:3, frankenstein:3, bugonia:3, hamnet:2, f1:2 },
         reveal: ["sinners","batalla","frankenstein","bugonia"],
         label2: "Directores con historial de nominaciones",
         exp: "Entonces podés ver “Sinners”, “Una batalla tras otra”, “Frankenstein” o “Bugonia”. Ryan Coogler, Paul Thomas Anderson, Guillermo Del Toro y Yorgos Lanthimos acumulan decenas de nominaciones entre los cuatro. Anderson lleva 18 años buscando su primer Oscar como director."
       },
       {
-        label: "Hambre de consagración.",
+        label: "Hambre de consagración",
         score: { agente:3, valor:3, marty:3, train:3, hamnet:2 },
         reveal: ["agente","valor","marty","train"],
         label2: "Directores en busca de su primera gran noche",
-        exp: "“El agente secreto”, “Valor sentimental”, “Marty Supremo” o “Sueños de trenes” son tus mejores opciones. Kleber Mendonça Filho, Joachim Trier, Josh Safdie y Clint Bentley llegan al Oscar con prestigio, pero sin el peso de la fama masiva."
+        exp: "“El agente secreto”, “Valor sentimental”, “Marty Supreme” o “Sueños de trenes” son tus mejores opciones. Kleber Mendonça Filho, Joachim Trier, Josh Safdie y Clint Bentley llegan al Oscar con prestigio, pero sin el peso de la fama masiva."
       }
     ]
   },
@@ -557,14 +557,14 @@ const questions = [
     q: "2. ¿Te atrae más lo raro o lo tradicional?",
     options: [
       {
-        label: "Cuanto más raro, mejor.",
+        label: "Cuanto más raro, mejor",
         score: { sinners:3, frankenstein:3, f1:3, bugonia:3 },
         reveal: ["sinners","frankenstein","bugonia"],
         label2: "Las películas de género nominadas este año",
         exp: "Aunque están “Frankenstein” y “Bugonia”, a “Sinners”, como película extraña, no le gana nada."
       },
       {
-        label: "Tradición mata todo.",
+        label: "Tradición mata todo",
         score: { batalla:3, hamnet:3, valor:3, agente:3, marty:2, train:2 },
         reveal: ["valor","hamnet"],
         label2: "Tradicionales más fuertes",
@@ -576,14 +576,14 @@ const questions = [
     q: "3. ¿América Latina o Europa?",
     options: [
       {
-        label: "Latinoamérica para siempre.",
+        label: "Latinoamérica para siempre",
         score: { frankenstein:3, agente:3, sinners:1, batalla:1 },
         reveal: ["frankenstein","agente"],
         label2: "Los directores latinoamericanos de la lista",
         exp: "“Frankenstein” y “El Agente Secreto”, de Guillermo del Toro (México) y Kleber Mendonça Filho (Brasil) respectivamente, son dos visiones completamente distintas de qué puede hacer el cine latino en las grandes ligas."
       },
       {
-        label: "Europa me interesa más.",
+        label: "Europa me interesa más",
         score: { hamnet:3, valor:3, bugonia:3, train:1 },
         reveal: ["valor"],
         label2: "El cine europeo nominado",
@@ -614,18 +614,18 @@ const questions = [
     q: "5. ¿El presupuesto importa? ¿Espectáculo o ingenio?",
     options: [
       {
-        label: "Espectáculo visual.",
+        label: "Espectáculo visual",
         score: { f1:3, sinners:3, frankenstein:3, batalla:2, bugonia:2 },
         reveal: ["f1","sinners","frankenstein"],
         label2: "Las películas de gran escala",
-        exp: "“F1” costó entre U$S 200 y 300 millones, Sinners salió U$S 90 millones y Frankenstein U$S 80 millones. Las tres apuestan a la experiencia cinematográfica como argumento en sí misma."
+        exp: "“F1” costó entre U$S 200 y 300 millones, Sinners salió U$S 90 millones y Frankenstein U$S 120 millones. Las tres apuestan a la experiencia cinematográfica como argumento en sí misma."
       },
       {
-        label: "El ingenio vale más.",
+        label: "El ingenio vale más",
         score: { agente:3, train:3, marty:3, valor:2, hamnet:2 },
-        reveal: ["agente","train","marty"],
+        reveal: ["agente","train"],
         label2: "Cine que hizo maravillas con poco presupuesto",
-        exp: "“El Agente Secreto” con U$S 1.4 millones, “Sueño de trenes” con U$S 10 millones y “Marty Supremo” con U$S 15 millones prueban que la visión artística no necesita billetera."
+        exp: "El Agente Secreto” con U$S 5 millones y “Sueño de trenes” con U$S 10 millones prueban que la visión artística no necesita billetera."
       }
     ]
   },
@@ -633,14 +633,14 @@ const questions = [
     q: "6. Si vas al cine, ¿cómo preferís salir: a 220 o totalmente emocionado?",
     options: [
       {
-        label: "Electrizado.",
+        label: "Electrizado",
         score: { sinners:3, f1:3, marty:3, frankenstein:2, bugonia:2 },
         reveal: ["sinners","f1","marty"],
         label2: "Para salir con energía",
-        exp: "“Sinners” te saca de la butaca, “F1” te hace sentir en la pista y “Marty Supremo” es pura energía. Las tres son experiencias físicas y narrativas."
+        exp: "“Sinners” te saca de la butaca, “F1” te hace sentir en la pista y “Marty Supreme” es pura energía. Las tres son experiencias físicas y narrativas."
       },
       {
-        label: "Conmovido.",
+        label: "Conmovido",
         score: { batalla:3, hamnet:3, valor:3, agente:3, train:2 },
         reveal: ["hamnet","valor","agente"],
         label2: "Para salir pensando",
@@ -652,18 +652,18 @@ const questions = [
     q: "7. ¿Que el protagonista alcance la gloria o que sufra como en la vida misma?",
     options: [
       {
-        label: "Protagonista que gana.",
+        label: "Protagonista que gana",
         score: { f1:3, sinners:3, marty:3, batalla:1, frankenstein:1 },
         reveal: ["f1","sinners","marty"],
         label2: "Para salir con orgullo",
-        exp: "F1 termina con el motor encendido, Sinners con el blues ganándole al mal y Marty Supreme con un campeón que no pide disculpas. Las tres creen en sus protagonistas hasta el final."
+        exp: "“F1” termina con el motor encendido, “Sinners” con el blues ganándole al mal y “Marty Supreme” con un campeón que no pide disculpas. Las tres creen en sus protagonistas hasta el final."
       },
       {
-        label: "Protagonista que sufre.",
+        label: "Protagonista que sufre",
         score: { hamnet:3, train:3, agente:3, valor:3, batalla:1 },
         reveal: ["hamnet","train","agente","valor"],
         label2: "Para salir pensando que te puede pasar",
-        exp: "Hamnet, Train Dreams, El Agente Secreto o Valor Sentimental. No te vamos a spoilear por qué."
+        exp: "“Hamnet”, “Sueños de trenes”,“El Agente Secreto” o “Valor Sentimental”. No te vamos a spoilear por qué."
       }
     ]
   },
@@ -671,14 +671,14 @@ const questions = [
     q: "8. ¿Qué te importa más: un actor conocido en su mejor papel o una revelación inesperada?",
     options: [
       {
-        label: "Estrella en su mejor papel.",
+        label: "Estrella en su mejor papel",
         score: { f1:3, batalla:3, sinners:3, bugonia:3, frankenstein:1 },
         reveal: ["f1","batalla","sinners","bugonia"],
         label2: "Para asegurar que sea un éxito",
         exp: "Brad Pitt, Leonardo DiCaprio, Michael B. Jordan en un doble rol y Emma Stone son cuatro apuestas sobre actores que ya probaron todo y aún tienen algo nuevo para mostrar."
       },
       {
-        label: "Un hallazgo que no esperaba.",
+        label: "Un hallazgo que no esperaba",
         score: { train:3, agente:3, hamnet:3, valor:2, marty:1 },
         reveal: ["train","agente","hamnet"],
         label2: "Para sorprenderse",
@@ -690,14 +690,14 @@ const questions = [
     q: "9. Hablemos de música: ¿banda sonora que te atraviesa o silencio que te pone tenso?",
     options: [
       {
-        label: "Banda sonora letal.",
+        label: "Banda sonora letal",
         score: { sinners:3, f1:3, frankenstein:3, batalla:1, bugonia:1 },
         reveal: ["sinners","f1","frankenstein"],
         label2: "Para los que tiene buen oído",
-        exp: "El blues del Delta en Sinners, el rugido de motores en F1 y la partitura orquestal de Del Toro en Frankenstein te van a conmover."
+        exp: "El blues del Delta en “Sinners”, el rugido de motores en “F1” y la partitura orquestal de Del Toro en “Frankestein” te van a conmover."
       },
       {
-        label: "Silencio y atmósfera.",
+        label: "Silencio y atmósfera",
         score: { train:3, valor:3, hamnet:3, agente:3, bugonia:1 },
         reveal: ["train","valor","hamnet","agente"],
         label2: "Para integrase a la película totalmente",
@@ -709,14 +709,14 @@ const questions = [
     q: "10. Lo último: ¿algo corto e intenso o una experiencia larga?",
     options: [
       {
-        label: "Corto, dos horas.",
+        label: "Corto, dos horas",
         score: { train:3, hamnet:3, valor:3, bugonia:3, agente:1 },
         reveal: ["train","hamnet","valor","bugonia"],
         label2: "Para disfrutar al instante ",
         exp: "Entran, hacen lo suyo y salen. Son las cuatro más cortas de la temporada. Y en ese tiempo les alcanza para dejar su huella."
       },
       {
-        label: "Dos horas y media o más.",
+        label: "Dos horas y media o más",
         score: { f1:3, batalla:3, sinners:3, frankenstein:3, agente:3, marty:3 },
         reveal: ["f1","batalla","sinners","frankenstein","agente","marty"],
         label2: "Para disfrutar cada detalle",
