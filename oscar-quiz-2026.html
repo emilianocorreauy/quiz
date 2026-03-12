@@ -57,7 +57,7 @@ header {
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--gold-soft);
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 header h1 {
@@ -228,6 +228,38 @@ header p {
   line-height: 1.5;
 }
 
+.watch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--gold-line-strong);
+  color: var(--gold-soft);
+  text-decoration: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+.watch-btn:hover {
+  background: linear-gradient(180deg, var(--gold-soft) 0%, var(--gold) 100%);
+  border-color: var(--gold);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.watch-btn.is-disabled {
+  opacity: .72;
+  cursor: default;
+  pointer-events: none;
+}
+
 .explanation {
   display: none;
   margin-top: 16px;
@@ -394,10 +426,9 @@ header p {
 <div class="page">
 
   <header>
-    <div class="kicker">Oscar 2026 · Mejor Película</div>
-    <h1>¿Cuál nominada<br>tenés que ver?</h1>
-    <p>Respondé 10 preguntas sobre tus gustos y te recomendamos una de las 10 nominadas a Mejor Película en los Oscar 2026.
-</p>
+    <div class="kicker" style="display: inline; margin-bottom: 20px;">Oscar 2026 · Mejor Película</div><img style="width: 10%; display: inline;" src="https://content.elpais.com.uy/wp-content/uploads/2026/03/xoscar-icono-140x140-3.png" alt="Logo Oscar">
+    <h1 style="padding-top: 12px;">¿Cuál nominada<br>tenés que ver?</h1>
+    <p>Respondé 10 preguntas sobre tus gustos y te recomendamos una de las 10 nominadas a Mejor Película en los Oscar 2026.</p>
   </header>
 
   <div id="quizArea"></div>
@@ -411,61 +442,81 @@ const FILMS = {
     title: "Sinners",
     dir: "Ryan Coogler",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/sinners.png",
-    bg: "#1a0800"
+    bg: "#1a0800",
+    watchText: "Ver en HBO Max",
+    watchLink: "#"
   },
   batalla: {
     title: "Una Batalla Tras Otra",
     dir: "Paul Thomas Anderson",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/una-batalla-tras-otra.jpg",
-    bg: "#2c1a0e"
+    bg: "#2c1a0e",
+    watchText: "Ver en HBO Max",
+    watchLink: "#"
   },
   hamnet: {
     title: "Hamnet",
     dir: "Chloé Zhao",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/hamnet.jpg",
-    bg: "#1c1a2e"
+    bg: "#1c1a2e",
+    watchText: "Actualmente en cines",
+    watchLink: "#"
   },
   frankenstein: {
     title: "Frankenstein",
     dir: "Guillermo del Toro",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/frankestein.jpg",
-    bg: "#0d1a0d"
+    bg: "#0d1a0d",
+    watchText: "Ver en Netflix",
+    watchLink: "#"
   },
   f1: {
     title: "F1",
     dir: "Joseph Kosinski",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/f1-la-pelicula.jpg",
-    bg: "#0a0a1a"
+    bg: "#0a0a1a",
+    watchText: "Apple TV · No disponible en Uruguay",
+    watchLink: "#"
   },
   agente: {
     title: "El Agente Secreto",
     dir: "Kleber Mendonça Filho",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/el-agente-secreto.jpg",
-    bg: "#1a1a0a"
+    bg: "#1a1a0a",
+    watchText: "Actualmente en cines",
+    watchLink: "#"
   },
   valor: {
     title: "Valor Sentimental",
     dir: "Joachim Trier",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/valor-sentimental.jpg",
-    bg: "#1a0a1a"
+    bg: "#1a0a1a",
+    watchText: "En Mubi y actualmente en cines",
+    watchLink: "#"
   },
   marty: {
     title: "Marty Supreme",
     dir: "Josh Safdie",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/marty-supreme.jpg",
-    bg: "#0a1a1a"
+    bg: "#0a1a1a",
+    watchText: "Actualmente en cines",
+    watchLink: "#"
   },
   bugonia: {
     title: "Bugonia",
     dir: "Yorgos Lanthimos",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/bugonia.jpg",
-    bg: "#1a0a0a"
+    bg: "#1a0a0a",
+    watchText: "Aún no está en plataformas",
+    watchLink: "#"
   },
   train: {
     title: "Train Dreams",
     dir: "Clint Bentley",
     img: "https://content.elpais.com.uy/wp-content/uploads/2026/03/suenos-de-trenes.jpg",
-    bg: "#1a1510"
+    bg: "#1a1510",
+    watchText: "Ver en Netflix",
+    watchLink: "#"
   }
 };
 
@@ -491,14 +542,14 @@ const questions = [
         score: { sinners:3, batalla:3, frankenstein:3, bugonia:3, hamnet:2, f1:2 },
         reveal: ["sinners","batalla","frankenstein","bugonia"],
         label2: "Directores con historial de nominaciones",
-        exp: "Coogler, Anderson, Del Toro y Lanthimos acumulan decenas de nominaciones entre los cuatro. Anderson lleva 28 años buscando su primer Oscar como director."
+        exp: "Entonces podés ver “Sinners”, “Una batalla tras otra”, “Frankenstein” o “Bugonia”. Ryan Coogler, Paul Thomas Anderson, Guillermo Del Toro y Yorgos Lanthimos acumulan decenas de nominaciones entre los cuatro. Anderson lleva 18 años buscando su primer Oscar como director."
       },
       {
         label: "Hambre de consagración.",
         score: { agente:3, valor:3, marty:3, train:3, hamnet:2 },
         reveal: ["agente","valor","marty","train"],
         label2: "Directores en busca de su primera gran noche",
-        exp: "Mendonça Filho, Trier, Safdie y Bentley llegan al Oscar sin el peso de la fama masiva. Primera o segunda vez en este escenario."
+        exp: "“El agente secreto”, “Valor sentimental”, “Marty Supremo” o “Sueños de trenes” son tus mejores opciones. Kleber Mendonça Filho, Joachim Trier, Josh Safdie y Clint Bentley llegan al Oscar con prestigio, pero sin el peso de la fama masiva."
       }
     ]
   },
@@ -510,90 +561,166 @@ const questions = [
         score: { sinners:3, frankenstein:3, f1:3, bugonia:3 },
         reveal: ["sinners","frankenstein","bugonia"],
         label2: "Las películas de género nominadas este año",
-        exp: "Este año el Oscar tiene más género que nunca: vampiros (Sinners), la criatura de Frankenstein, Fórmula 1 filmada en carreras reales y el universo surreal de Lanthimos."
+        exp: "Aunque están “Frankenstein” y “Bugonia”, a “Sinners”, como película extraña, no le gana nada."
       },
       {
         label: "Tradición mata todo.",
         score: { batalla:3, hamnet:3, valor:3, agente:3, marty:2, train:2 },
         reveal: ["valor","hamnet"],
         label2: "Tradicionales más fuertes",
-        exp: "Desde la épica histórica de Anderson hasta el intimismo noruego de Trier, pasando por el duelo shakespeariano de Hamnet y el thriller político de Mendonça Filho."
+        exp: "“Valor sentimental” está bien, pero “Hamnet” te va a desgarrar."
       }
     ]
   },
   {
-    q: "3. ¿Preferís cine latinoamericano o te inclinás por el cine de autor europeo?",
+    q: "3. ¿América Latina o Europa?",
     options: [
       {
-        label: "Latinoamérica tiene algo que Hollywood no puede replicar",
+        label: "Latinoamérica para siempre.",
         score: { frankenstein:3, agente:3, sinners:1, batalla:1 },
         reveal: ["frankenstein","agente"],
         label2: "Los directores latinoamericanos de la lista",
-        exp: "Guillermo del Toro (México) con Frankenstein y Kleber Mendonça Filho (Brasil) con El Agente Secreto: dos visiones completamente distintas de qué puede hacer el cine latino en los máximos escenarios."
+        exp: "“Frankenstein” y “El Agente Secreto”, de Guillermo del Toro (México) y Kleber Mendonça Filho (Brasil) respectivamente, son dos visiones completamente distintas de qué puede hacer el cine latino en las grandes ligas."
       },
       {
-        label: "El cine de autor europeo me habla de otra manera",
+        label: "Europa me interesa más.",
         score: { hamnet:3, valor:3, bugonia:3, train:1 },
-        reveal: ["hamnet","valor","bugonia"],
+        reveal: ["valor"],
         label2: "El cine europeo nominado",
-        exp: "Chloé Zhao (UK/China), Joachim Trier (Noruega) y Yorgos Lanthimos (Grecia): tres sensibilidades radicalmente distintas que llegan al Oscar desde el margen del sistema."
+        exp: "“Valor sentimental” es tu imperdible de la temporada. La sensibilidad del noruego Joachim Trier en su máxima expresión."
       }
     ]
   },
   {
-    q: "4. ¿Preferís una historia basada en hechos o personas reales, o ficción pura que invente su propio mundo?",
+    q: "4. ¿Preferís los hechos reales o una buena historia de ficción?",
     options: [
       {
         label: "Real: si pasó de verdad, me llega más profundo",
         score: { hamnet:3, agente:3, marty:3, train:3, f1:2, batalla:2 },
-        reveal: ["hamnet","agente","marty","train"],
+        reveal: ["hamnet","marty"],
         label2: "Basadas en hechos o personas reales",
-        exp: "Hamnet narra la familia del Shakespeare real, El Agente Secreto es espionaje político verdadero en Brasil, Marty Supreme retrata a un campeón real de ping pong y Train Dreams está basada en una novela de corte autobiográfico."
+        exp: "Perfecto, entonces “Hamnet” y “Marty Supreme” son tu plan A."
       },
       {
         label: "Ficción: quiero mundos que solo existen en la pantalla",
         score: { sinners:3, frankenstein:3, bugonia:3, valor:2, f1:1 },
         reveal: ["sinners","frankenstein","bugonia"],
         label2: "Ficción sin ataduras a la realidad",
-        exp: "Vampiros en el sur de EEUU en 1932, la criatura de Frankenstein reimaginada y el universo absurdo e inexplicable de Lanthimos. Ficción que no le pide permiso a nadie."
+        exp: "Entonces “Sinners”, “Frankenstein” y “Bugonia” son una buena opción, aunque hay muchas más en la lista."
       }
     ]
   },
   {
-    q: "5. El presupuesto, ¿importa? ¿Espectáculo visual o ingenio con poco dinero?",
+    q: "5. ¿El presupuesto importa? ¿Espectáculo o ingenio?",
     options: [
       {
-        label: "Que se note en pantalla — quiero producción, efectos, escala",
+        label: "Espectáculo visual.",
         score: { f1:3, sinners:3, frankenstein:3, batalla:2, bugonia:2 },
         reveal: ["f1","sinners","frankenstein"],
         label2: "Las películas de gran escala",
-        exp: "F1 costó entre $200–300 millones, Sinners $90 millones y Frankenstein $80 millones. Las tres apuestan a la experiencia cinematográfica como argumento en sí misma."
+        exp: "“F1” costó entre U$S 200 y 300 millones, Sinners salió U$S 90 millones y Frankenstein U$S 80 millones. Las tres apuestan a la experiencia cinematográfica como argumento en sí misma."
       },
       {
-        label: "El ingenio vale más — lo que importa es la visión",
+        label: "El ingenio vale más.",
         score: { agente:3, train:3, marty:3, valor:2, hamnet:2 },
         reveal: ["agente","train","marty"],
         label2: "Cine que hizo maravillas con poco presupuesto",
-        exp: "El Agente Secreto con $1.4 millones, Train Dreams con $10 millones y Marty Supreme con $15 millones. Las tres prueban que la visión artística no necesita billetera."
+        exp: "“El Agente Secreto” con U$S 1.4 millones, “Sueño de trenes” con U$S 10 millones y “Marty Supremo” con U$S 15 millones prueban que la visión artística no necesita billetera."
       }
     ]
   },
   {
-    q: "6. Esta noche: ¿querés salir electrizado del cine o salir pensando en algo que te va a quedar días?",
+    q: "6. Si vas al cine, ¿cómo preferís salir: a 220 o totalmente emocionado?",
     options: [
       {
-        label: "Electrizado — que me mueva el piso",
+        label: "Electrizado.",
         score: { sinners:3, f1:3, marty:3, frankenstein:2, bugonia:2 },
         reveal: ["sinners","f1","marty"],
         label2: "Para salir con energía",
-        exp: "Sinners te saca de la butaca, F1 te hace sentir en la pista y Marty Supreme tiene la energía nerviosa de Uncut Gems. Las tres son experiencias físicas tanto como narrativas."
+        exp: "“Sinners” te saca de la butaca, “F1” te hace sentir en la pista y “Marty Supremo” es pura energía. Las tres son experiencias físicas y narrativas."
       },
       {
-        label: "Que me quede — el tipo de película que vuelve cuando apagás la luz",
+        label: "Conmovido.",
         score: { batalla:3, hamnet:3, valor:3, agente:3, train:2 },
-        reveal: ["batalla","hamnet","valor","agente"],
+        reveal: ["hamnet","valor","agente"],
         label2: "Para salir pensando",
-        exp: "Una Batalla Tras Otra, Hamnet, Valor Sentimental y El Agente Secreto trabajan lento, acumulan, te esperan. El mejor tipo de cine: el que no termina en el cine."
+        exp: "“Hamnet”, “Valor sentimental”, “El agente secreto”. Trabajan lento y son ejemplos del mejor tipo de películas: las que no terminan en el cine."
+      }
+    ]
+  },
+  {
+    q: "7. ¿Que el protagonista alcance la gloria o que sufra como en la vida misma?",
+    options: [
+      {
+        label: "Protagonista que gana.",
+        score: { f1:3, sinners:3, marty:3, batalla:1, frankenstein:1 },
+        reveal: ["f1","sinners","marty"],
+        label2: "Para salir con orgullo",
+        exp: "F1 termina con el motor encendido, Sinners con el blues ganándole al mal y Marty Supreme con un campeón que no pide disculpas. Las tres creen en sus protagonistas hasta el final."
+      },
+      {
+        label: "Protagonista que sufre.",
+        score: { hamnet:3, train:3, agente:3, valor:3, batalla:1 },
+        reveal: ["hamnet","train","agente","valor"],
+        label2: "Para salir pensando que te puede pasar",
+        exp: "Hamnet, Train Dreams, El Agente Secreto o Valor Sentimental. No te vamos a spoilear por qué."
+      }
+    ]
+  },
+  {
+    q: "8. ¿Qué te importa más: un actor conocido en su mejor papel o una revelación inesperada?",
+    options: [
+      {
+        label: "Estrella en su mejor papel.",
+        score: { f1:3, batalla:3, sinners:3, bugonia:3, frankenstein:1 },
+        reveal: ["f1","batalla","sinners","bugonia"],
+        label2: "Para asegurar que sea un éxito",
+        exp: "Brad Pitt, Leonardo DiCaprio, Michael B. Jordan en un doble rol y Emma Stone son cuatro apuestas sobre actores que ya probaron todo y aún tienen algo nuevo para mostrar."
+      },
+      {
+        label: "Un hallazgo que no esperaba.",
+        score: { train:3, agente:3, hamnet:3, valor:2, marty:1 },
+        reveal: ["train","agente","hamnet"],
+        label2: "Para sorprenderse",
+        exp: "Acá la actuación central quizás no viene de la cara más conocida de Hollywood, pero igual te va a volar la cabeza."
+      }
+    ]
+  },
+  {
+    q: "9. Hablemos de música: ¿banda sonora que te atraviesa o silencio que te pone tenso?",
+    options: [
+      {
+        label: "Banda sonora letal.",
+        score: { sinners:3, f1:3, frankenstein:3, batalla:1, bugonia:1 },
+        reveal: ["sinners","f1","frankenstein"],
+        label2: "Para los que tiene buen oído",
+        exp: "El blues del Delta en Sinners, el rugido de motores en F1 y la partitura orquestal de Del Toro en Frankenstein te van a conmover."
+      },
+      {
+        label: "Silencio y atmósfera.",
+        score: { train:3, valor:3, hamnet:3, agente:3, bugonia:1 },
+        reveal: ["train","valor","hamnet","agente"],
+        label2: "Para integrase a la película totalmente",
+        exp: "Cuatro películas que confían en la sutileza del sonido, que está ahí, pero casi nunca te dice cómo tenés que sentirte."
+      }
+    ]
+  },
+  {
+    q: "10. Lo último: ¿algo corto e intenso o una experiencia larga?",
+    options: [
+      {
+        label: "Corto, dos horas.",
+        score: { train:3, hamnet:3, valor:3, bugonia:3, agente:1 },
+        reveal: ["train","hamnet","valor","bugonia"],
+        label2: "Para disfrutar al instante ",
+        exp: "Entran, hacen lo suyo y salen. Son las cuatro más cortas de la temporada. Y en ese tiempo les alcanza para dejar su huella."
+      },
+      {
+        label: "Dos horas y media o más.",
+        score: { f1:3, batalla:3, sinners:3, frankenstein:3, agente:3, marty:3 },
+        reveal: ["f1","batalla","sinners","frankenstein","agente","marty"],
+        label2: "Para disfrutar cada detalle",
+        exp: "Estás de suerte porque la mayoría de las películas de la temporada duran eso (o más). Se toman su tiempo, en la mayoría de los casos porque lo necesitan."
       }
     ]
   }
@@ -603,6 +730,19 @@ let current = 0;
 let scores = {};
 Object.keys(FILMS).forEach(k => scores[k] = 0);
 let answered = false;
+
+function getWatchButton(f) {
+  if (!f.watchText) return '';
+
+  const disabledClass = (!f.watchLink || f.watchLink === '#') ? ' is-disabled' : '';
+  const href = f.watchLink && f.watchLink !== '#' ? f.watchLink : 'javascript:void(0)';
+
+  return `
+    <a class="watch-btn${disabledClass}" href="${href}" ${disabledClass ? 'aria-disabled="true"' : 'target="_blank" rel="noopener noreferrer"'}>
+      ${f.watchText}
+    </a>
+  `;
+}
 
 function render() {
   if (current >= questions.length) {
@@ -639,6 +779,7 @@ function render() {
                   <div class="movie-title">${f.title}</div>
                   <div class="movie-dir">Dir. ${f.dir}</div>
                   <div class="movie-desc">${PITCHES[fk]}</div>
+                  ${getWatchButton(f)}
                 </div>
               </div>
             `;
@@ -715,6 +856,7 @@ function showResult() {
               <div class="result-title">${f.title}</div>
               <div class="result-detail">Dir. ${f.dir}</div>
               <div class="result-pitch">${PITCHES[fk]}</div>
+              ${getWatchButton(f)}
             </div>
           </div>
         `;
